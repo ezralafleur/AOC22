@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <title>Day 1</title>
+        <script>
+            function startCalc() {
+                let inputElement = document.getElementById("initialInput");
+                let inputText = inputElement.value.trim();
+
+                let elfArr = inputText.split('\n\n');
+                elfArr = elfArr.map(function(elf){return elf.split('\n')});
+
+                let elfTotal = elfArr.map(function(elf){
+                    return elf.reduce(function(total, item){
+                        item = parseInt(item);
+                        return total+item;
+                    }, 0);
+                });
+
+                let maxCal = Math.max(...elfTotal);
+
+                let resultElement = document.getElementById("result");
+                resultElement.innerHTML = elfTotal + "<hr>" + elfArr + "<hr>Max: " + maxCal;
+
+                return maxCal;
+            }
+        </script>
+    </head>
+    <body>
+        <p>
+            Enter your input:
+            <br>
+            <textarea id="initialInput">
+
+            </textarea>
+            <br>
+            <button onclick="startCalc()">Solve</button>
+        </p>
+        <p>
+            <h3>Result:</h3>
+            <br>
+            <p id="result"></p>
+        </p>
+    </body>
+</html>
