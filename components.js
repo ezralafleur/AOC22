@@ -1,26 +1,61 @@
+class inputBox extends HTMLElement {
+    connectedCallback() {
+        let day = this.getAttribute('day');
+        let section = document.createElement('section');
+        section.setAttribute('class', 'section column');
+
+        let form = document.createElement('form');
+        form.setAttribute('class', 'box');
+        form.innerHTML = `<label class="label">Enter your input:</label>
+                <textarea class="textarea" id="input"></textarea>
+                <br>
+                <a target="_blank" class="button has-background-link-light has-text-link-dark" href="https://adventofcode.com/2022/day/${day}/input">Get Puzzle Input</a>
+                <a onclick="start()" class="button has-background-link-dark has-text-link-light"><b>Solve</b></a>`;
+        
+        section.appendChild(form);
+        
+        this.setAttribute('class', 'column');
+        this.appendChild(section);
+    }
+}
+
+customElements.define('input-box', inputBox);
+
+class resultBox extends HTMLElement {
+    connectedCallback() {
+        let section = document.createElement('section');
+        section.setAttribute('class', 'section column');
+
+        let card = document.createElement('card');
+        card.setAttribute('id', 'resultCont');
+        card.setAttribute('style', 'display: none;');
+        card.setAttribute('class', 'box');
+        card.innerHTML = `<p class="content" id="resultText">
+                <span class="is-size-6 has-text-weight-bold">First Solution: </span><span id="solutionOne"></span>
+                <hr>
+                <span class="is-size-6 has-text-weight-bold">Second Solution: </span><span id="solutionTwo"></span>
+                </p>`;
+        
+        section.appendChild(card);
+
+        this.setAttribute('class', 'column');
+        this.appendChild(section);
+    }
+}
+
+customElements.define('result-box', resultBox);
+
 class Content extends HTMLElement {
     connectedCallback() {
         let day = this.getAttribute('day');
-        this.innerHTML = `<main class="columns" id="solution">
-                <section class="section column">
-                    <form class="box">
-                        <label class="label">Enter your input:</label>
-                        <textarea class="textarea" id="input"></textarea>
-                        <br>
-                        <a target="_blank" class="button has-background-link-light has-text-link-dark" href="https://adventofcode.com/2022/day/${day}/input">Get Puzzle Input</a>
-                        <a onclick="start()" class="button has-background-link-dark has-text-link-light"><b>Solve</b></a>
-                    </form>
-                </section>
-                <section class="section column">
-                    <card id="resultCont" style="display: none;" class="box">
-                        <p class="content" id="resultText">
-                            <span class="is-size-6 has-text-weight-bold">First Solution: </span><span id="solutionOne"></span>
-                            <hr>
-                            <span class="is-size-6 has-text-weight-bold">Second Solution: </span><span id="solutionTwo"></span>
-                        </p>
-                    </card>
-                </section>
-            </main>`;
+        let main = document.createElement('main');
+        main.setAttribute('class', 'columns');
+        main.setAttribute('id', 'solution');
+
+        main.innerHTML = `<input-box day=${day}></input-box>
+                <result-box></result-box>`;
+
+        this.appendChild(main);
     }
 }
 
