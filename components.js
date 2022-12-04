@@ -97,3 +97,15 @@ class Header extends HTMLElement {
 
 customElements.define('main-content', Content);
 customElements.define('main-header', Header);
+
+class Body extends HTMLElement {
+    connectedCallback() {
+        let day = this.getAttribute('day');
+        this.innerHTML = `<body>
+            <main-header day="${day}"></main-header>
+            <main-content></main-content>
+            </body>`;
+    }
+}
+
+customElements.define('main-body', Body);
