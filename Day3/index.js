@@ -1,3 +1,15 @@
+function getTest() {
+    let request = new Request("https://adventofcode.com/2022/day/3/input", {method: 'GET'});
+    fetch(request).then((response) => {
+        replaceInput(response.body);
+    });
+}
+
+function replaceInput(content) {
+    let inputElement = document.getElementById("initialInput");
+    inputElement.value = content;
+}
+
 function startCalc() {
     let sacks = getInput();
 
