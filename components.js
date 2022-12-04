@@ -1,12 +1,14 @@
 class Content extends HTMLElement {
     connectedCallback() {
+        let day = this.getAttribute('day');
         this.innerHTML = `<main class="columns" id="solution">
                 <section class="section column">
                     <form class="box">
                         <label class="label">Enter your input:</label>
                         <textarea class="textarea" id="input"></textarea>
                         <br>
-                        <a onclick="start()" class="button has-background-link-light has-text-link-dark"><b>Solve</b></a>
+                        <a target="_blank" class="button has-background-link-light has-text-link-dark" href="https://adventofcode.com/2022/day/${day}/input">Get Puzzle Input</a>
+                        <a onclick="start()" class="button has-background-link-dark has-text-link-light"><b>Solve</b></a>
                     </form>
                 </section>
                 <section class="section column">
@@ -103,7 +105,7 @@ class Body extends HTMLElement {
         let day = this.getAttribute('day');
         this.innerHTML = `<body>
             <main-header day="${day}"></main-header>
-            <main-content></main-content>
+            <main-content day="${day}"></main-content>
             </body>`;
     }
 }
