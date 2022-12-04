@@ -1,28 +1,11 @@
-function startCalc() {
-    let rounds = getInput();
+function start() {
+    let inputText = getInput();
+    let rounds = inputText.split('\n');
 
     let stratOneScore = strategyOne(rounds);
     let stratTwoScore = strategyTwo(rounds);
     
-    displayResult(stratOneScore, stratTwoScore);
-}
-
-function getInput() {
-    let inputElement = document.getElementById("initialInput");
-    let inputText = inputElement.value.trim();
-
-    let rounds = inputText.split('\n');
-
-    return rounds;
-}
-
-function displayResult(stratOneScore, stratTwoScore) {
-    let resultContainer = document.getElementById("resultCont");
-    let resultElement = document.getElementById("resultText");
-
-    resultElement.innerHTML = "Strategy 1 Score: " + stratOneScore;
-    resultElement.innerHTML += "<br>Strategy 2 Score: " + stratTwoScore;
-    resultContainer.style.display = "block";
+    displayResults(stratOneScore, stratTwoScore);
 }
 
 function getScore(oppCode, youCode) {

@@ -1,31 +1,16 @@
+<!DOCTYPE html>
 <html>
     <head>
         <title>Day 2</title>
-        <link rel="stylesheet" href="https://unpkg.com/mvp.css@1.12/mvp.css"> 
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+        <link rel="stylesheet" href="https://bulma.io/vendor/fontawesome-free-5.15.2-web/css/all.min.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="index.js"></script>
+        <script src="../helper.js"></script>
+        <script src="../components.js"></script>
     </head>
     <body>
-        <header>
-            <h1>Advent of Code 2022</h1>
-            <h2>Day 2</h2>
-        </header>
-        <main style="width: 60%; max-width:600px;">
-            <form>
-                Enter your input:
-
-                <textarea id="initialInput">
-
-                </textarea>
-                <a onclick="startCalc()"><b>Solve</b></a>
-            </form>
-        <article>
-            <aside id="resultCont" style="display: none;">
-                <p>
-                    <h3>Result:</h3>
-                    <samp id="resultText"></samp>
-                </p>
-            </aside>
-        </article>
-        </main>
+        <main-header day="2"></main-header>
+        <main-content></main-content>
     </body>
 </html>

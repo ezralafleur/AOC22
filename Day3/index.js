@@ -1,5 +1,6 @@
-function startCalc() {
-    let sacks = getInput();
+function start() {
+    let inputText = getInput();
+    let sacks = inputText.split('\n');
 
     let sackSets = sacks.map(function(sack){
         return new Set(sack);
@@ -31,25 +32,7 @@ function startCalc() {
         return total + subtotal;
     });
     
-    displayResult(sumItemPriority, sumBadgePriority);
-}
-
-function getInput() {
-    let inputElement = document.getElementById("initialInput");
-    let inputText = inputElement.value.trim();
-
-    let sacks = inputText.split('\n');
-
-    return sacks;
-}
-
-function displayResult(totalPriorities, badgePriorities) {
-    let resultContainer = document.getElementById("resultCont");
-    let resultElement = document.getElementById("resultText");
-
-    resultElement.innerHTML = "Total Priorities: " + totalPriorities;
-    resultElement.innerHTML += "<br>Badge Priorities: " + badgePriorities;
-    resultContainer.style.display = "block";
+    displayResults(sumItemPriority, sumBadgePriority);
 }
 
 function findBadgesFromSackSets(sackSets) {
