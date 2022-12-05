@@ -1,6 +1,6 @@
 function getInput() {
     let inputElement = document.getElementById("input");
-    let inputText = inputElement.value.trim();
+    let inputText = inputElement.value.trimRight();
 
     return inputText;
 }

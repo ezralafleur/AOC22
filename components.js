@@ -1,3 +1,5 @@
+const DAYS_COMPLETED = 5;
+
 class inputBox extends HTMLElement {
     connectedCallback() {
         let day = this.getAttribute('day');
@@ -13,7 +15,7 @@ class inputBox extends HTMLElement {
                 <a onclick="start()" class="button has-background-link-dark has-text-link-light"><b>Solve</b></a>`;
         
         section.appendChild(form);
-        
+
         this.setAttribute('class', 'column');
         this.appendChild(section);
     }
@@ -59,6 +61,56 @@ class Content extends HTMLElement {
     }
 }
 
+class DayDropdown extends HTMLElement {
+    connectedCallback() {
+        let day = this.getAttribute('day');
+        
+        let dropdown = document.createElement('div');
+        dropdown.setAttribute('class', "dropdown is-hoverable navbar-item m-1 mx-4");
+
+        let dropdown_trigger = document.createElement('div');
+        dropdown_trigger.setAttribute('class', 'dropdown-trigger');
+
+        let button = document.createElement('button');
+        button.setAttribute('class', 'dropdown-trigger');
+        button.innerHTML = `<span>Other Days</span>
+                <span class="icon is-small">
+                <i class="fas fa-angle-down" aria-hidden="true"></i>
+                </span>`;
+
+        dropdown_trigger.appendChild(button);
+
+        dropdown.appendChild(dropdown_trigger);
+
+        let dropdown_menu = document.createElement('div');
+        dropdown_menu.setAttribute('class', 'dropdown-menu');
+        dropdown_menu.setAttribute('role', 'menu');
+
+        let dropdown_content = document.createElement('div');
+        dropdown_content.setAttribute('class', 'dropdown-content');
+
+        for (let i = 1; i <= DAYS_COMPLETED; i++) {
+            let a = document.createElement('a');
+            a.setAttribute("href", `../Day${i}/index.html`);
+            a.classList.add("dropdown-item");
+
+            if (i == day) {
+                a.classList.add("is-active");
+            }
+
+            a.innerText=`Day ${i}`;
+            dropdown_content.appendChild(a);
+        }
+
+        dropdown_menu.appendChild(dropdown_content);
+        dropdown.appendChild(dropdown_menu);
+
+        this.appendChild(dropdown);
+    }
+}
+
+customElements.define('day-dropdown', DayDropdown);
+
 class Header extends HTMLElement {
     connectedCallback() {
         let day = this.getAttribute("day");
@@ -86,45 +138,8 @@ class Header extends HTMLElement {
         navbar_start.appendChild(subtitle);
         header.appendChild(navbar_start);
 
-        let dropdown = document.createElement('div');
-        dropdown.setAttribute('class', "dropdown is-hoverable navbar-item m-1 mx-4");
-
-        let dropdown_trigger = document.createElement('div');
-        dropdown_trigger.setAttribute('class', 'dropdown-trigger');
-
-        let button = document.createElement('button');
-        button.setAttribute('class', 'dropdown-trigger');
-        button.innerHTML = `<span>Other Days</span>
-                <span class="icon is-small">
-                <i class="fas fa-angle-down" aria-hidden="true"></i>
-                </span>`;
-
-        dropdown_trigger.appendChild(button);
-
-        dropdown.appendChild(dropdown_trigger);
-
-        let dropdown_menu = document.createElement('div');
-        dropdown_menu.setAttribute('class', 'dropdown-menu');
-        dropdown_menu.setAttribute('role', 'menu');
-
-        let dropdown_content = document.createElement('div');
-        dropdown_content.setAttribute('class', 'dropdown-content');
-
-        for (let i = 1; i <= 4; i++) {
-            let a = document.createElement('a');
-            a.setAttribute("href", `../Day${i}/index.html`);
-            a.classList.add("dropdown-item");
-
-            if (i == day) {
-                a.classList.add("is-active");
-            }
-
-            a.innerText=`Day ${i}`;
-            dropdown_content.appendChild(a);
-        }
-
-        dropdown_menu.appendChild(dropdown_content);
-        dropdown.appendChild(dropdown_menu);
+        let dropdown = document.createElement('day-dropdown');
+        dropdown.setAttribute('day', day);
 
         navbar_start.appendChild(dropdown);
 
