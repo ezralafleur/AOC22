@@ -1,17 +1,20 @@
 function start() {
     let inputText = getInput();
-    let index = processInput(inputText);
+    let packetStart = findUniqueWindow(inputText, 4);
+    let messageStart = findUniqueWindow(inputText, 14);
 
-    displayResults(index);
+    displayResults(packetStart, messageStart);
 }
 
-function processInput(input) {
+function findUniqueWindow(input, windowLength) {
+    windowLength -= 1;
+
     for (let i in input) {
         i = parseInt(i);
         let char = input[i];
 
-        let windowStart = i < 3 ? 0 : i-3;
-        let windowEnd = i > 3 ? i : 3;
+        let windowStart = i < windowLength ? 0 : i-windowLength;
+        let windowEnd = i > windowLength ? i : windowLength;
 
         let window = input.slice(windowStart, windowEnd);
 
@@ -19,7 +22,7 @@ function processInput(input) {
             continue;
         }
         else if (!window.includes(char)) {
-            return i + 1;
+            return windowEnd + 1;
         }
     }
 
