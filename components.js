@@ -161,3 +161,42 @@ class Body extends HTMLElement {
 }
 
 customElements.define('main-body', Body);
+
+class IndexTable extends HTMLElement {
+    connectedCallback() {
+        let table = document.createElement('table');
+        table.setAttribute('class', 'table');
+
+        var tbody = document.createElement('tbody');
+
+        for (let i = 1; i <= DAYS_COMPLETED; i++) {
+            let tr = document.createElement('tr');
+            let th = document.createElement('th');
+
+            let td1 = document.createElement('td');
+            let a1 = document.createElement('a');
+            a1.setAttribute('href', 'https://adventofcode.com/2022/day/'+i);
+            a1.setAttribute('target', '_blank');
+            a1.innerText = "Problem";
+            td1.appendChild(a1);
+
+            let td2 = document.createElement('td');
+            let a2 = document.createElement('a');
+            a2.setAttribute('href', 'Day'+i+'/index.html');
+            a2.innerText = "Solution";
+            td2.appendChild(a2);
+
+            th.innerText = "Day " + i;
+
+            tr.appendChild(th);
+            tr.appendChild(td1);
+            tr.appendChild(td2);
+            tbody.appendChild(tr);
+        }
+
+        table.appendChild(tbody);
+        this.appendChild(table);
+    }
+}
+
+customElements.define('index-table', IndexTable);
