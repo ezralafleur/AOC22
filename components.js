@@ -61,6 +61,8 @@ class Content extends HTMLElement {
     }
 }
 
+customElements.define('main-content', Content);
+
 class DayDropdown extends HTMLElement {
     connectedCallback() {
         let day = this.getAttribute('day');
@@ -89,6 +91,12 @@ class DayDropdown extends HTMLElement {
         let dropdown_content = document.createElement('div');
         dropdown_content.setAttribute('class', 'dropdown-content');
 
+        let a = document.createElement('a');
+        a.setAttribute('href', '../index.html');
+        a.innerText = 'Index';
+        a.classList.add('dropdown-item');
+        dropdown_content.appendChild(a);
+
         for (let i = 1; i <= DAYS_COMPLETED; i++) {
             let a = document.createElement('a');
             a.setAttribute("href", `../Day${i}/index.html`);
@@ -111,12 +119,9 @@ class DayDropdown extends HTMLElement {
 
 customElements.define('day-dropdown', DayDropdown);
 
-class Header extends HTMLElement {
+class BasicHeader extends HTMLElement {
     connectedCallback() {
-        let day = this.getAttribute("day");
-
-        let header = document.createElement('header');
-        header.setAttribute("class", "navbar has-background-link-light is-spaced");
+        this.setAttribute("class", "navbar has-background-link-light is-spaced");
 
         let navbar_brand = document.createElement('div');
         navbar_brand.setAttribute("class", "navbar-brand");
@@ -126,7 +131,18 @@ class Header extends HTMLElement {
         title.innerText = "Advent of Code 2022";
 
         navbar_brand.appendChild(title);
-        header.appendChild(navbar_brand);
+        this.appendChild(navbar_brand);
+    }
+}
+
+customElements.define('basic-header', BasicHeader);
+
+class DayHeader extends HTMLElement {
+    connectedCallback() {
+        let day = this.getAttribute("day");
+
+        let header = document.createElement('basic-header');
+        this.appendChild(header);
 
         let navbar_start = document.createElement('div');
         navbar_start.setAttribute('class', 'navbar-start');
@@ -136,25 +152,23 @@ class Header extends HTMLElement {
         subtitle.innerText = 'Day ' + day;
 
         navbar_start.appendChild(subtitle);
-        header.appendChild(navbar_start);
-
+        
         let dropdown = document.createElement('day-dropdown');
         dropdown.setAttribute('day', day);
-
+        
         navbar_start.appendChild(dropdown);
-
-        this.appendChild(header);
+        
+        header.appendChild(navbar_start);
     }
 }
 
-customElements.define('main-content', Content);
-customElements.define('main-header', Header);
+customElements.define('day-header', DayHeader);
 
 class Body extends HTMLElement {
     connectedCallback() {
         let day = this.getAttribute('day');
         this.innerHTML = `<body>
-            <main-header day="${day}"></main-header>
+            <day-header day="${day}"></day-header>
             <main-content day="${day}"></main-content>
             </body>`;
     }
@@ -177,13 +191,13 @@ class IndexTable extends HTMLElement {
             let a1 = document.createElement('a');
             a1.setAttribute('href', 'https://adventofcode.com/2022/day/'+i);
             a1.setAttribute('target', '_blank');
-            a1.innerText = "Problem";
+            a1.innerText = "Problem Description";
             td1.appendChild(a1);
 
             let td2 = document.createElement('td');
             let a2 = document.createElement('a');
             a2.setAttribute('href', 'Day'+i+'/index.html');
-            a2.innerText = "Solution";
+            a2.innerText = "Solution Page";
             td2.appendChild(a2);
 
             th.innerText = "Day " + i;
