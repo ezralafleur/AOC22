@@ -64,6 +64,8 @@ function getSignalsFromInstructions(lines) {
     }
   }
 
+  signalArray = signalArray.slice(0, -1); // dumb idea
+
   return signalArray;
 }
 
