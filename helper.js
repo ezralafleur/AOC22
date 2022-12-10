@@ -10,7 +10,7 @@ function displayResults(solutionOne, solutionTwo) {
   let firstElement = document.getElementById("solutionOne");
   let secondElement = document.getElementById("solutionTwo");
 
-  firstElement.innerText = solutionOne;
-  secondElement.innerText = solutionTwo;
+  firstElement.innerHTML = solutionOne;
+  secondElement.innerHTML = solutionTwo;
   resultContainer.style.display = "block";
 }
