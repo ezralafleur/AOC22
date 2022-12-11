@@ -1,4 +1,4 @@
-const DAYS_COMPLETED = 10;
+const DAYS_COMPLETED = 11;
 
 class inputBox extends HTMLElement {
   connectedCallback() {
